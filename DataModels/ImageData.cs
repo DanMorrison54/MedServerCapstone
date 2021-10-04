@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.ML.Data;
 
 namespace MedServerCapstone.DataModels
@@ -15,5 +12,7 @@ namespace MedServerCapstone.DataModels
 
         [ColumnName("ImageSource"), LoadColumn(1)]
         public string ImageSource { get; set; }
+
+        public IFormFile imageFile { get; set; }
     }
 }
