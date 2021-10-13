@@ -22,22 +22,25 @@ namespace MedServerCapstone.Controllers
         }
 
         [HttpPost]
-        public async Task<object> Post([FromForm] ImageData imageData)
+        public async Task<object> Post([FromForm] ImageSent imageSent)
         {
             try
             {
-                if (imageData.imageFile.Length > 0)
+                if (imageSent.ImageFile.Length > 0)
                 {
                     string path = _env.WebRootPath + "\\images\\";
                     if (!Directory.Exists(path))
                     {
                         Directory.CreateDirectory(path);
                     }
-                    using (FileStream fileStream = System.IO.File.Create(path + imageData.imageFile.FileName))
+                    using (FileStream fileStream = System.IO.File.Create(path + imageSent.ImageFile.FileName))
                     {
-                        imageData.imageFile.CopyTo(fileStream);
+                        MLModel.ModelInput imageData = new();
+                        imageData.ImageSource = imageSent.ImageSource;
+                        imageSent.ImageFile.CopyTo(fileStream);
                         fileStream.Flush();
-                        return "Upload Done";
+                        var predResult = MLModel.Predict(imageData);
+                        return predResult.Prediction;
                     }
                 }
                 else

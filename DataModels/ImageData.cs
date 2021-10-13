@@ -13,6 +13,6 @@ namespace MedServerCapstone.DataModels
         [ColumnName("ImageSource"), LoadColumn(1)]
         public string ImageSource { get; set; }
 
-        public IFormFile imageFile { get; set; }
+
     }
 }

@@ -30,7 +30,8 @@ namespace MedServerCapstone
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services) {
-
+            // Register Prediction Engine Pool
+            services.AddPredictionEnginePool<MLModel.ModelInput, MLModel.ModelOutput>().FromFile("MLModel.zip");
             services.AddControllers();
             services.AddSwaggerGen(c => {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MedServerCapstone", Version = "v1" });
